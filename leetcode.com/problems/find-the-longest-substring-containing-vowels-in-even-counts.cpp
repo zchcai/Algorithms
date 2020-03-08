@@ -1,17 +1,17 @@
 class Solution {
 public:
     int findTheLongestSubstring(string m) {
-		// Naive: O(N^2)
-		// A[i]: 00000b, represents the odd-even status for every char
+        // Naive: O(N^2)
+        // A[i]: 00000b, represents the odd-even status for every char
         // Calculate S[i] = A[0] ^ ... ^ A[i - 1], i = 1, 2, ..., n
         // Choose largest k > 0 s.t., S[i + k] ^ S[i] = 0, i = 0, ... , n - 1
-		// Opt: O(N)
-		// store the first status seen before:
-		// seen[S[i]] = i when S[i] first appears, except for S[0] = 0
+        // Opt: O(N)
+        // store the first status seen before:
+        // seen[S[i]] = i when S[i] first appears, except for S[0] = 0
         int n = m.length();        
         vector<int> seen(32, n + 1); // corresponds to S[i]
-		seen[0] = 0;
-		int ans = 0;
+        seen[0] = 0;
+        int ans = 0;
         char cur = 0;
         for(int i = 0; i < n; i ++) {
             char t = 0;
