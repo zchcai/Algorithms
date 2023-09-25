@@ -6,6 +6,17 @@
   * A slice is a SliceHeader value, NOT a pointer, containing a pointer and a length.
   * `string` is read-only []byte (in storage).
 */
+var nilSlice []bool         // `nil` slice with ptr = 0 at SliceHeader
+stringSlice := []string{}   // empty construction same as make([]string, 0), not `nil`
+intSlice := make([]int, n)  // non-empty slice with n length
+var floatSlice []float64 = []float64{1.2, 3.4}
+
+for i, v := range intSlice {
+  // v == intSlice[i]
+}
+for i := 0; i < len(intSlice); i ++ {
+  // iteration
+}
 
 // Sorting
 sort.Ints(intSlice)
@@ -17,6 +28,24 @@ vs := make([]Vertex, 42)
 sort.Slice(vs, func(i, j int) bool {
   return vs[i].X < vs[j].X // "less" function: finally increasing by X
 })
+
+// Map
+// The key must be comparable, not requiring orderable. The value can be any type.
+/** https://go.dev/blog/maps:
+  * ... in short, comparable types are boolean, numeric, string, pointer, channel, and interface
+  * types, and structs or arrays that contain only those types. Notably absent from the list are
+  * slices, maps, and functions; these types cannot be compared using ==, and may not be used as
+  * map keys. ...
+*/
+m := make(map[int]string) // initialization doesn't need initial value
+m[42] = "answer"
+value, ok := map[42]    // ok is true
+delete(m, 42)
+value, ok = map[42]	    // ok is false
+length := len(m)    // same as slice
+for k, v := range m {
+  // iteration doesn't guarantee order
+}
 
 // Struct
 type Vertex struct {
